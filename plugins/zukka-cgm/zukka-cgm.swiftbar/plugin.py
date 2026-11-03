@@ -234,11 +234,11 @@ def maybe_alert(readings, config):
             message = f"{value} mg/dL {trend} · yellow range."
             kinds = ["warning"]
             if spike and ready("spike"):
-                message += " Reading is rising; check your primary CGM app."
+                message += " Rising quickly—consider a short walk if it is safe for you."
                 kinds.append("spike")
         elif spike and ready("spike"):
             heading = "Glucose rising"
-            message = f"{value} mg/dL {trend} · Check your primary CGM app."
+            message = f"{value} mg/dL {trend} · Consider a short walk if it is safe for you."
             kinds = ["spike"]
         if not kinds:
             return None
@@ -256,7 +256,7 @@ def alert_menu(config):
     print("---")
     print("Alerts · Zukka Calendar Share | color=secondaryLabel")
     for key, label in (("enabled", "Alerts enabled"), ("warning", "Yellow warning"),
-        ("danger", "Red danger"), ("spike", "Rise notification"),
+        ("danger", "Red danger"), ("spike", "Walk prompt on spike"),
                        ("focus_override", "Red/yellow through Focus")):
         checked = str(config[key]).lower()
         print(f"{label} | checked={checked} bash={script} param1=toggle param2={key} "
@@ -272,7 +272,7 @@ def alert_menu(config):
         print(f"--{minutes} min | checked={checked} bash={script} "
               f"param1=cooldown_minutes param2={minutes} terminal=false refresh=true")
     print(f"Test red/yellow popup | bash={script} param1=test param2=urgent terminal=false")
-    print(f"Test rise notification | bash={script} param1=test param2=normal terminal=false")
+    print(f"Test walk notification | bash={script} param1=test param2=normal terminal=false")
 
 
 def get_readings():
@@ -343,7 +343,10 @@ def ensure_reader_running():
 def main():
     if len(sys.argv) == 3 and sys.argv[1] == "test" and sys.argv[2] in ("urgent", "normal"):
         urgent = sys.argv[2] == "urgent"
-        if not send_notification("Zukka glucose alerts", "Test notification from SwiftBar", urgent):
+        title = "Zukka glucose alerts" if urgent else "Glucose rising · test"
+        body = ("Synthetic test notification from SwiftBar" if urgent else
+                "Synthetic test: Consider a short walk if it is safe for you.")
+        if not send_notification(title, body, urgent):
             print("Could not send Mac notification", file=sys.stderr)
             raise SystemExit(1)
         return

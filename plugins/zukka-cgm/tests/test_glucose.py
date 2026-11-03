@@ -56,6 +56,20 @@ class GlucoseTests(unittest.TestCase):
                     glucose.get_readings()
                 restart.assert_called_once()
 
+    def test_walk_suggestion_is_optional_and_requires_a_fresh_reading(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            config = {**glucose.DEFAULT_ALERTS, "enabled": True}
+            fresh = [(120, "🟢 130 ↑", "130", "↑")]
+            with mock.patch.object(glucose, "LOCK_FILE", root / "lock"), \
+                 mock.patch.object(glucose, "STATE_FILE", root / "state.json"), \
+                 mock.patch.object(glucose, "send_notification", return_value=True) as send:
+                glucose.maybe_alert(fresh, config)
+                self.assertIn("consider a short walk", send.call_args.args[1].lower())
+                send.reset_mock()
+                glucose.maybe_alert([(11 * 60, "🟢 130 ↑", "130", "↑")], config)
+                send.assert_not_called()
+
     def test_malformed_state_is_ignored(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / "state.json"

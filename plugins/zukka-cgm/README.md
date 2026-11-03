@@ -10,7 +10,7 @@ An unofficial [SwiftBar](https://github.com/swiftbar/SwiftBar) plugin that shows
 - Green, yellow, or red when the event title contains Zukka's matching range symbol; unknown ranges are left uncolored.
 - A conspicuous *stale* label after 15 minutes instead of presenting an old number as current.
 - Earlier readings and local 24-hour and seven-day charts, with gaps for intervals not captured on this Mac.
-- Optional Mac notifications for yellow or red range indicators and rising readings. All notifications start disabled and have a cooldown; they are not safety alerts.
+- Optional Mac notifications for yellow or red range indicators and a suggested short walk on a rising reading. The walk prompt is limited to 100–239 mg/dL, suppressed for red range, and shown only for a reading less than 10 minutes old. All notifications start disabled and have a cooldown; they are not safety alerts.
 
 The plugin reads Calendar through Apple's EventKit. It has **no direct Zukka API integration**, account login, API token, or network client. It does not upload readings. The companion Calendar app or iCloud may sync events separately; see the [Calendar Share documentation](https://xdrip4ios.readthedocs.io/en/latest/services/calendarShare/) for setup and privacy implications.
 
@@ -51,7 +51,19 @@ Zukka · Calendar Share
 Latest: 🟢 128 → · 2m old
 ```
 
-No screenshot is included because an authentic live screenshot would reveal personal health data. A future screenshot should be captured from this labeled demo mode in SwiftBar.
+### Demo media
+
+These are **illustrative renders made with synthetic data**, not screenshots or a recording of a live SwiftBar session. They show the menu, optional alert controls, and the suggested short walk notification. No personal readings appear in them.
+
+![Synthetic plugin menu](media/menu-demo.png)
+
+![Synthetic alerts menu showing the optional walk prompt](media/alerts-menu-demo.png)
+
+![Synthetic suggested action notification](media/walk-suggestion-demo.png)
+
+![Animated synthetic plugin demo](media/zukka-demo.gif)
+
+For a genuine screenshot or recording, run the labeled demo mode in SwiftBar and capture only the SwiftBar menu and synthetic notifications. Review the capture for other personal information before sharing.
 
 ## Troubleshooting
 

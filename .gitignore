@@ -1,0 +1,13 @@
+.DS_Store
+**/.venv/
+**/__pycache__/
+**/*.pyc
+**/.scripts/*.app/
+**/.scripts/glucose_alerts.json
+**/.scripts/glucose_alert_state.json
+**/.scripts/glucose_alert_state.lock
+**/.scripts/glucose_pause
+**/.scripts/glucose_readings_cache.txt
+**/.scripts/glucose_reader.pid
+**/.scripts/glucose_reader_launch.txt
+**/.scripts/glucose_history.json

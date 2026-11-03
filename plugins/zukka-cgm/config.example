@@ -1,0 +1,5 @@
+# Optional environment variables for SwiftBar's plugin environment.
+# Set these outside this repository; do not put health data or credentials here.
+GLUCOSE_CALENDAR=Glucose
+# Set to 1 only to preview synthetic data without reading Calendar.
+ZUKKA_CGM_DEMO=0

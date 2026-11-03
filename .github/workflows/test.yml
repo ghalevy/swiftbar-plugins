@@ -1,0 +1,20 @@
+name: Test
+on:
+  push:
+  pull_request:
+jobs:
+  validate:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python checks
+        run: |
+          python3 -m unittest discover -s plugins/zukka-cgm/tests -v
+          python3 -c "import ast, pathlib; ast.parse(pathlib.Path('plugins/zukka-cgm/zukka-cgm.swiftbar/plugin.py').read_text())"
+      - name: Shell and Swift syntax
+        run: |
+          bash -n plugins/zukka-cgm/zukka-cgm.swiftbar/setup.sh
+          swiftc -parse plugins/zukka-cgm/zukka-cgm.swiftbar/.scripts/glucose_calendar.swift
+          swiftc -parse plugins/zukka-cgm/zukka-cgm.swiftbar/.scripts/glucose_notifier.swift
+      - name: Check public files for local data
+        run: python3 scripts/check_public_files.py

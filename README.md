@@ -6,7 +6,7 @@ Small, independent menu bar tools for [SwiftBar](https://github.com/swiftbar/Swi
 
 | Plugin | What it does |
 | --- | --- |
-| [Zukka CGM Calendar](plugins/zukka-cgm/) | Displays recent glucose values, trend, reading age, local history charts, and optional notifications from Zukka Calendar Share. |
+| [Zukka CGM Calendar](plugins/zukka-cgm/README.md) | Displays recent glucose values, trend, reading age, local history charts, and optional notifications from Zukka Calendar Share. |
 
 Zukka CGM Calendar is a convenience display. It is not a substitute for your primary CGM app, official monitoring equipment, safety alerts, or medical decisions.
 
